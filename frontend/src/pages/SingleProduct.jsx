@@ -23,7 +23,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/ecom/products/${productId}`)
+      .get(`http://localhost:8082/ecom/products/${productId}`)
       .then((response) => {
         setProduct(response.data);
       })
@@ -39,11 +39,21 @@ const SingleProduct = () => {
       return;
     }
     
-    // Here you would need to modify your API call to include size and quantity
-    // This is just a placeholder - you'll need to adjust your API endpoint accordingly
+    const sizeOption = sizeOptions.find(option => option.id === selectedSize);
+    const totalPrice = (Number(product.price) + sizeOption.price) * quantity;
+    
+    // Create a cart item object with all necessary information
+    const cartItem = {
+      productId: productid,
+      size: selectedSize,
+      quantity: quantity,
+      price: totalPrice
+    };
+    
     api
       .post(
-        `/ecom/cart/add-product?userId=${userid}&productId=${productid}&size=${selectedSize}&quantity=${quantity}`
+        `/ecom/cart/add-product?userId=${userid}`,
+        cartItem
       )
       .then((response) => {
         localStorage.setItem("cartid", response.data.cartId);

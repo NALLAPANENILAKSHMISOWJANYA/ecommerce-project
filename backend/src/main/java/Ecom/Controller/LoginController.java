@@ -29,8 +29,10 @@ public class LoginController {
 			signinSuceesData.setLastName(customer.getLastName());
 			signinSuceesData.setSigninStatus("Success");
 
-			return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);}
-		catch(UserException ex ){
+			return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);
+			}
+		catch(UserException ex )
+		{
 			throw new UserException("Invalid Password");
 		}
 

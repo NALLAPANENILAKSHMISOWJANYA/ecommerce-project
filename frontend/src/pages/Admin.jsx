@@ -28,7 +28,7 @@ const Admin = () => {
       <div className="admin-navbar">
         <h3
           onClick={() => {
-            setSelectedComponent(<AllProductAdmin />);
+            setSelectedComponent("all-products");
           }}
         >
           Admin Home
@@ -37,7 +37,7 @@ const Admin = () => {
         <h3
           onClick={() => {
             localStorage.removeItem("adminid");
-            localStorage.removeItem("jwtTocken");
+            localStorage.removeItem("jwtToken");
             navigate("/admin-login");
           }}
         >
@@ -49,6 +49,13 @@ const Admin = () => {
         <div className="productConatiner">{renderSelectedComponent()}</div>
         <div className="boxConatiner">
           <ul>
+            <li
+              onClick={() => {
+                setSelectedComponent("all-products");
+              }}
+            >
+              All Products
+            </li>
             <li
               onClick={() => {
                 setSelectedComponent("add-product");

@@ -39,7 +39,7 @@ const Product = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8080/ecom/products/all")
+      .get("http://localhost:8082/ecom/products/all")
       .then((response) => {
         setProducts(response.data);
         filterProducts(selectedCategory, priceOrder, nameSearch, response.data);

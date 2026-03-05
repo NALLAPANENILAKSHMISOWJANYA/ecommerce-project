@@ -3,7 +3,6 @@ package Ecom.Controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,24 +23,21 @@ import jakarta.validation.Valid;
 public class CustomerController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    // Manually defined constructor
-    public CustomerController(UserService userService, PasswordEncoder passwordEncoder) {
+    // Constructor for dependency injection
+    public CustomerController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping
     public ResponseEntity<User> addUser(@Valid @RequestBody CustomerDTO user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User addedUser = userService.addUser(user);
         return ResponseEntity.ok(addedUser);
     }
 
     @PutMapping("/update-password/{customerId}")
     public ResponseEntity<User> updateUserPassword(@PathVariable("customerId") Integer customerId,
-                                                  @Valid @RequestBody UserDTO userdto) {
+            @Valid @RequestBody UserDTO userdto) {
         User updatedUser = userService.changePassword(customerId, userdto);
         return ResponseEntity.ok(updatedUser);
     }

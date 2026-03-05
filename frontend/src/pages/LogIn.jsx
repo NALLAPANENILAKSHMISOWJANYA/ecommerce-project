@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../comp_css/Login.css";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import loginbg from "../picture/loginbg1.webp";
-
-const bg = {
-  backgroundImage: `url(${loginbg})`,
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center center",
-  border: "1px solid grey",
-  height: "100vh",
-};
+import api from '../Router/api';
 
 const formData = {
   username: "",
@@ -29,7 +19,6 @@ const Login = () => {
     };
   }, []); 
 
-
   const setHandlerChange = (e) => {
     const val = e.target.value;
     setForm({ ...form, [e.target.name]: val });
@@ -40,12 +29,11 @@ const Login = () => {
 
     try {
       const authHeader = `Basic ${btoa(`${form.username}:${form.password}`)}`;
-      const response = await axios.get("http://localhost:8080/ecom/signIn", {
+      const response = await api.get("/ecom/signIn", {
         headers: {
           Authorization: authHeader,
         },
       });
-      //console.log(response.data);
       if (response.headers.authorization != undefined) {
         localStorage.setItem("jwtToken", response.headers.authorization);
         localStorage.setItem("name", response.data.firstNAme || "LogIn");
@@ -69,47 +57,81 @@ const Login = () => {
   const { username, password } = form;
 
   return (
-    <>
-    <div style={bg}>
-      <h2 style={{ textAlign: "center", color: "White", margin: "20px" }}>
-       WELCOME TO USER LOGIN PAGE
-      </h2>
-      <div className="loginConatiner" >
-        <div className="login-form">
-          <h2 style={{ textAlign: "center" }}>LogIn </h2>
-          <form onSubmit={submitHandler}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input
-                id="username"
-                type="text"
-                name="username"
-                value={username}
-                onChange={setHandlerChange}
-              />
+    <div className="login-container">
+      <button 
+        className="home-button"
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          padding: "10px 20px",
+          backgroundColor: "#ff6b6b",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontSize: "1rem",
+          fontWeight: "600",
+          transition: "background 0.3s ease"
+        }}
+      >
+        Home
+      </button>
+      <div className="login-content">
+        <div className="login-image">
+          <img 
+            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+            alt="Ice Cream Delight"
+          />
+        </div>
+        <div className="login-form-container">
+          <div className="login-form">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue your sweet journey</p>
+            
+            <form onSubmit={submitHandler}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={setHandlerChange}
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={setHandlerChange}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              
+              <button type="submit" className="login-button">
+                Sign In
+              </button>
+            </form>
+            
+            <div className="login-footer">
+              <p>Don't have an account?</p>
+              <Link to="/register-user" className="signup-link">
+                Create Account
+              </Link>
             </div>
-            <br />
-            <div className="form-group">
-              <label>Password:</label>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={setHandlerChange}
-              />
-            </div>
-            <div className="form-group">
-              <input type="submit" value="Login" />
-              <p>
-                Don't have an account?{" "}
-                <Link to="/register-user">Register here</Link>
-              </p>
-            </div>
-          </form>
+          </div>
         </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 

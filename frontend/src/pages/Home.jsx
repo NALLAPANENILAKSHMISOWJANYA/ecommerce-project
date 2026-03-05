@@ -1,53 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "../components/Slider";
 import "../comp_css/Slider.css";
-import Atta from "../picture/Atta_and_dals.avif";
-import Beauty from "../picture/Beauty_and_personal_care.avif";
-import Cleaning from "../picture/Cleaning_essentials.avif";
-import Home_essentials from "../picture/Home_essentials.avif";
-import kids_fashion from "../picture/kids_fashion.avif";
-import Kitchen_must_haves from "../picture/Kitchen_must_haves.avif";
-import Laptops_and_Tablets from "../picture/Laptops_and_Tablets.avif";
-import men_fashion from "../picture/men_fashion.avif";
-import Oil_and_ghee from "../picture/Oil_and_ghee.avif";
-import Smart_Televisions from "../picture/Smart_Televisions.avif";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const veritycard = [
-    Atta,
-    Beauty,
-    Cleaning,
-    Home_essentials,
-    kids_fashion,
-    Kitchen_must_haves,
-    Laptops_and_Tablets,
-    men_fashion,
-    Oil_and_ghee,
-    Smart_Televisions,
-  ];
+  const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const cardTitles = [
-    "Classic flavours",
-    "Fruity Flavors",
-    "Premium Flavors",
-    "Seasonal flavours",
-    "Cones and Bars",
-    "Desserts",
-    "Natural flavours",
-    "Kulfis",
-    "Brownie Icecreams",
-    "Nutella Icecreams"
+  const categories = [
+    {
+      id: "classic flavours",
+      title: "Classic Flavors",
+      image: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
+    },
+    {
+      id: "premium flavours",
+      title: "Premium Flavors",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Ty2OKoCiqMwEOBETx93QIext7pVX2fjRRg&s"
+    },
+    {
+      id: "seasonal flavours",
+      title: "Seasonal Flavors",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmcosMQcQCv9KjjQ5E9LsSfQrvPMnND3bo0Q&s"
+    },
+    {
+      id: "cones and bars",
+      title: "Cones and Bars",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA6WZDl-27T_5oqsv0PVzjNHyOZHXbU0kI7g&s"
+    },
+    {
+      id: "fruit based flavours",
+      title: "Fruit Based Flavors",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpIQ9O5NSTlFqdDf2MHzOcGNYAi1Y2nH8bSA&s"
+    }
   ];
 
   const slideImages = [
-    "https://img.freepik.com/premium-psd/ice-cream-menu-promotion-banner-template_185005-367.jpg?w=1380",
-    "https://t3.ftcdn.net/jpg/05/64/02/34/360_F_564023464_RaZb95D8yFPt2DnxbsYLQaQQ5BSrUImO.jpg",
-    "https://img.freepik.com/free-vector/summer-sale-banner-template-with-chocolate-ice-cream-red_134830-949.jpg",
-  ];
-
-  const slideImages2 = [
-    "https://i.pinimg.com/1200x/9a/fb/25/9afb2541929bca24a241993997ee60f5.jpg",
-    "https://static.vecteezy.com/system/resources/thumbnails/043/288/955/small/ice-cream-on-an-empty-pastel-background-summer-background-with-ice-cream-and-copy-space-summer-time-composition-for-web-banner-cards-invitations-photo.jpg",
+    {
+      url: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      title: "New Summer Collection",
+      description: "Discover our refreshing new flavors for the season",
+      buttonText: "Shop Now",
+      buttonLink: "/product"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1560008581-09826d1de69e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=744&q=80",
+      title: "Special Offers",
+      description: "Get 20% off on bulk orders this week",
+      buttonText: "View Deals",
+      buttonLink: "/product"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+      title: "Premium Flavors",
+      description: "Experience our handcrafted premium ice cream collection",
+      buttonText: "Explore Premium",
+      buttonLink: "/category/premium"
+    }
   ];
 
   const styleFixedImg = {
@@ -56,12 +65,13 @@ const Home = () => {
     marginTop: "10px",
     marginBottom: "10px",
     objectFit: "cover",
+    borderRadius: "8px"
   };
 
   const sliderContainerStyle = {
-    marginBottom: "20px",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-    borderRadius: "8px",
+    marginBottom: "40px",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+    borderRadius: "12px",
     overflow: "hidden"
   };
 
@@ -70,107 +80,162 @@ const Home = () => {
   };
 
   const categoryTitleStyle = {
-    fontSize: "24px",
+    fontSize: "28px",
     fontWeight: "600",
-    margin: "10px 0 20px 10px",
+    margin: "20px 0",
     color: "#333",
-    borderBottom: "2px solid #f0f0f0",
-    paddingBottom: "10px",
+    textAlign: "center",
+    position: "relative",
+    paddingBottom: "15px"
+  };
+
+  const categoryTitleStyleAfter = {
+    content: '""',
+    position: "absolute",
+    bottom: "0",
+    left: "50%",
+    transform: "translateX(-50%)",
+    width: "100px",
+    height: "3px",
+    backgroundColor: "#ff6b6b"
   };
 
   const cardboxStyle = {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))",
-    gap: "16px",
-    padding: "0 10px",
+    gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+    gap: "30px",
+    padding: "20px",
+    maxWidth: "1200px",
+    margin: "0 auto"
   };
 
   const categoryCardStyle = {
-    borderRadius: "8px",
+    borderRadius: "15px",
     overflow: "hidden",
     transition: "transform 0.3s ease, box-shadow 0.3s ease",
     cursor: "pointer",
-    boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     position: "relative",
-  };
-
-  const categoryCardHoverStyle = {
-    transform: "translateY(-5px)",
-    boxShadow: "0 5px 15px rgba(0, 0, 0, 0.2)",
+    backgroundColor: "#fff"
   };
 
   const categoryImageStyle = {
     width: "100%",
-    aspectRatio: "1/1",
+    height: "250px",
     objectFit: "cover",
+    transition: "transform 0.3s ease"
   };
 
   const categoryLabelStyle = {
-    position: "absolute",
-    bottom: "0",
-    left: "0",
-    right: "0",
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: "8px",
+    padding: "20px",
     textAlign: "center",
     fontWeight: "500",
+    fontSize: "20px",
+    color: "#333",
+    backgroundColor: "#fff",
+    transition: "background-color 0.3s ease"
+  };
+
+  const productListStyle = {
+    padding: "20px",
+    backgroundColor: "#fff",
+    borderRadius: "8px",
+    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+    marginTop: "20px"
+  };
+
+  const productCardStyle = {
+    padding: "15px",
+    borderBottom: "1px solid #eee",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center"
+  };
+
+  const productInfoStyle = {
+    flex: 1
+  };
+
+  const productNameStyle = {
+    fontSize: "18px",
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: "5px"
+  };
+
+  const productPriceStyle = {
+    fontSize: "16px",
+    color: "#ff6b6b",
+    fontWeight: "500"
+  };
+
+  const productDescriptionStyle = {
     fontSize: "14px",
+    color: "#666",
+    marginTop: "5px"
   };
 
   useEffect(() => {
-    document.title = 'Ecommerse | Home Page';
+    document.title = 'Ice Cream Delight | Home';
     return () => { 
-      document.title = 'Ecommerse App';
+      document.title = 'Ice Cream Delight';
     };
   }, []); 
 
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
       {/* Hero Banner Slider */}
       <div style={sliderContainerStyle}>
-        <Slider images={slideImages} interval={4000} />
-      </div>
-
-      {/* Fixed Image Banner */}
-      <div className="ImageFixed" style={sliderContainerStyle}>
-        <img
-          style={styleFixedImg}
-          src="https://www.nationaldaycalendar.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cg_faces:center%2Cq_auto:eco%2Cw_768/MjA2NDU3NDc4NTgwMjgyNzA4/website-feature---national-ice-cream-month--july.png"
-          alt="Daily Deals"
-        />
-      </div>
-
-      {/* Payment Options Slider */}
-      <div style={sliderContainerStyle}>
-        <Slider images={slideImages2} interval={5000} />
+        <Slider images={slideImages} interval={5000} />
       </div>
 
       {/* Category Cards */}
       <div style={categoryContainerStyle}>
-        <h2 style={categoryTitleStyle}>Shop By Category</h2>
+        <h2 style={categoryTitleStyle}>
+          Shop By Category
+          <span style={categoryTitleStyleAfter}></span>
+        </h2>
         <div className="cardbox" style={cardboxStyle}>
-          {veritycard.map((el, index) => (
+          {categories.map((category) => (
             <div 
-              key={`veritycard-${index}`} 
+              key={category.id}
               style={categoryCardStyle}
+              onClick={() => navigate(`/category/${category.id}`)}
               onMouseEnter={(e) => {
-                Object.assign(e.currentTarget.style, categoryCardHoverStyle);
+                e.currentTarget.style.transform = "translateY(-10px)";
+                e.currentTarget.style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.2)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "";
-                e.currentTarget.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.1)";
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
               }}
             >
               <img 
-                src={el} 
-                alt={cardTitles[index]} 
+                src={category.image} 
+                alt={category.title} 
                 style={categoryImageStyle}
               />
-              <div style={categoryLabelStyle}>{cardTitles[index]}</div>
+              <div style={categoryLabelStyle}>{category.title}</div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* Selected Category Products */}
+      {selectedCategory && (
+        <div style={productListStyle}>
+          <h3 style={{ marginBottom: "20px", color: "#333" }}>{selectedCategory.title}</h3>
+          {selectedCategory.products.map((product, index) => (
+            <div key={index} style={productCardStyle}>
+              <div style={productInfoStyle}>
+                <div style={productNameStyle}>{product.name}</div>
+                <div style={productDescriptionStyle}>{product.description}</div>
+              </div>
+              <div style={productPriceStyle}>{product.price}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

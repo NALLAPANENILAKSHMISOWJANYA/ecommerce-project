@@ -20,114 +20,123 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class AppConfig {
-    @Bean
-    public SecurityFilterChain springSecurityConfiguration(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain springSecurityConfiguration(HttpSecurity http) throws Exception {
 
-        http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                http.sessionManagement(sessionManagement -> sessionManagement
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                .cors(cors -> {
-                    cors.configurationSource(new CorsConfigurationSource() {
-                        @Override
-                        public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                                .cors(cors -> {
+                                        cors.configurationSource(new CorsConfigurationSource() {
+                                                @Override
+                                                public CorsConfiguration getCorsConfiguration(
+                                                                HttpServletRequest request) {
 
-                            CorsConfiguration cfg = new CorsConfiguration();
+                                                        CorsConfiguration cfg = new CorsConfiguration();
 
-                            cfg.setAllowedOriginPatterns(Collections.singletonList("*"));
-//                            cfg.setAllowedOriginPatterns(Collections.singletonList("https://eccomers96.netlify.app/"));
-                            cfg.setAllowedOriginPatterns(Collections.singletonList("http://localhost:5173"));
-                            cfg.setAllowedMethods(Collections.singletonList("*"));
-        
-                            cfg.setAllowCredentials(true);
-                            cfg.setAllowedHeaders(Collections.singletonList("*"));
-                            cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                                                        cfg.setAllowedOriginPatterns(Collections.singletonList("*"));
+                                                        // cfg.setAllowedOriginPatterns(Collections.singletonList("https://eccomers96.netlify.app/"));
+                                                        cfg.setAllowedOriginPatterns(Collections
+                                                                        .singletonList("http://localhost:5173"));
+                                                        cfg.setAllowedMethods(Collections.singletonList("*"));
 
-                            return cfg;
+                                                        cfg.setAllowCredentials(true);
+                                                        cfg.setAllowedHeaders(Collections.singletonList("*"));
+                                                        cfg.setExposedHeaders(Arrays.asList("Authorization"));
 
-                        }
-                    });
-                })
-                .authorizeHttpRequests(auth -> {
-                    auth
-                            .requestMatchers(HttpMethod.POST, "/ecom/admin").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/ecom/customers").permitAll()
-                            .requestMatchers(HttpMethod.DELETE, "/ecom/orders/users/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/ecom/signIn", "/ecom/product-reviews/**","/ecom/products/**").permitAll()
+                                                        return cfg;
 
-                            .requestMatchers(
-                                    HttpMethod.POST,
-                                    "/ecom/product/**",
-                                    "/ecom/order-shippers/**"
+                                                }
+                                        });
+                                })
+                                .authorizeHttpRequests(auth -> {
+                                        auth
+                                                        .requestMatchers("/", "/favicon.ico").permitAll() // Allow root
+                                                                                                          // path and
+                                                                                                          // favicon
+                                                        .requestMatchers(HttpMethod.POST, "/ecom/admin").permitAll()
+                                                        .requestMatchers(HttpMethod.POST, "/ecom/customers").permitAll()
+                                                        .requestMatchers(HttpMethod.DELETE, "/ecom/orders/users/**")
+                                                        .permitAll()
+                                                        .requestMatchers(HttpMethod.GET, "/ecom/product-reviews/**",
+                                                                        "/ecom/products/**")
+                                                        .permitAll()
+                                                        .requestMatchers(HttpMethod.GET, "/ecom/signIn").authenticated()
 
-                            ).hasRole("ADMIN")
-                            .requestMatchers(
-                                    HttpMethod.POST,
-                                    "/ecom/product/**",
-                                    "/ecom/product-reviews/**",
-                                    "/ecom/customer-addresses/**",
-                                    "/ecom/cart/**",
-                                    "/ecom/orders/**",
-                                    "/ecom/order-shipping/**"
-                            ).hasRole("USER")
-                            .requestMatchers(
-                                    HttpMethod.PUT,
-                                    "/ecom/admin/**",
-                                    "/ecom/products/**"
+                                                        .requestMatchers(
+                                                                        HttpMethod.POST,
+                                                                        "/ecom/product/**",
+                                                                        "/ecom/order-shippers/**"
 
-                            ).hasRole("ADMIN")
-                            .requestMatchers(
-                                    HttpMethod.PUT,
-                                    "/ecom/admin/**",
-                                    "/ecom/product-reviews/**",
-                                    "/ecom/customer-addresses/update/**",
-                                    "/ecom/cart/**", "/ecom/order-shipping/**"
+                                                        ).hasRole("ADMIN")
+                                                        .requestMatchers(
+                                                                        HttpMethod.POST,
+                                                                        "/ecom/product/**",
+                                                                        "/ecom/product-reviews/**",
+                                                                        "/ecom/customer-addresses/**",
+                                                                        "/ecom/cart/**",
+                                                                        "/ecom/orders/**",
+                                                                        "/ecom/order-shipping/**")
+                                                        .hasRole("USER")
+                                                        .requestMatchers(
+                                                                        HttpMethod.PUT,
+                                                                        "/ecom/admin/**",
+                                                                        "/ecom/products/**"
 
-                            ).hasRole("USER")
+                                                        ).hasRole("ADMIN")
+                                                        .requestMatchers(
+                                                                        HttpMethod.PUT,
+                                                                        "/ecom/admin/**",
+                                                                        "/ecom/product-reviews/**",
+                                                                        "/ecom/customer-addresses/update/**",
+                                                                        "/ecom/cart/**", "/ecom/order-shipping/**"
 
-                            .requestMatchers(
-                                    HttpMethod.DELETE,
-                                    "/ecom/products/**",
-                                    "/ecom/product-reviews/**",
-                                    "/ecom/customer-addresses/delete/**",
-//                                    "/ecom/orders/users/**",
-                                    "/ecom/order-shipping/**",
-                                    "/ecom/order-shippers/**"
+                                                        ).hasRole("USER")
 
-                            ).hasRole("ADMIN")
-                            .requestMatchers(
-                                    HttpMethod.DELETE,
-                                    "/ecom/cart/remove-product/**"
-//                                    "/ecom/orders/users/**"
-                            ).hasRole("USER")
+                                                        .requestMatchers(
+                                                                        HttpMethod.DELETE,
+                                                                        "/ecom/products/**",
+                                                                        "/ecom/product-reviews/**",
+                                                                        "/ecom/customer-addresses/delete/**",
+                                                                        // "/ecom/orders/users/**",
+                                                                        "/ecom/order-shipping/**",
+                                                                        "/ecom/order-shippers/**"
 
-                            .requestMatchers(
-                                    HttpMethod.GET,
+                                                        ).hasRole("ADMIN")
+                                                        .requestMatchers(
+                                                                        HttpMethod.DELETE,
+                                                                        "/ecom/cart/remove-product/**"
+                                        // "/ecom/orders/users/**"
+                                        ).hasRole("USER")
 
-                                    "/ecom/customer-addresses/**",
-                                    "/ecom/cart/products/**",
-                                    "/ecom/orders/**",
-                                    "/ecom/order-shippers",
-                                    "/ecom/order-payments/**"
+                                                        .requestMatchers(
+                                                                        HttpMethod.GET,
 
-                            ).hasAnyRole("ADMIN", "USER")
+                                                                        "/ecom/customer-addresses/**",
+                                                                        "/ecom/cart/products/**",
+                                                                        "/ecom/orders/**",
+                                                                        "/ecom/order-shippers",
+                                                                        "/ecom/order-payments/**"
 
-                            .requestMatchers("/swagger-ui*/**", "/v3/api-docs/**").permitAll()
-                            .anyRequest().authenticated();
-                })
-                .csrf(csrf -> csrf.disable())
-                .addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
-                .addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class)
-                .httpBasic(Customizer.withDefaults());
+                                                        ).hasAnyRole("ADMIN", "USER")
 
-        return http.build();
+                                                        .requestMatchers("/swagger-ui*/**", "/v3/api-docs/**")
+                                                        .permitAll()
+                                                        .anyRequest().authenticated();
+                                })
+                                .httpBasic(Customizer.withDefaults())
+                                .csrf(csrf -> csrf.disable())
+                                .addFilterAfter(new JwtTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+                                .addFilterBefore(new JwtTokenValidatorFilter(), BasicAuthenticationFilter.class);
 
-    }
+                return http.build();
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        }
 
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
 
+        }
 
 }
-

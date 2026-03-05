@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import "../comp_css/paymentForm.css";
 import { useNavigate } from "react-router-dom";
+import emailjs from "emailjs-com";
 import paymentBg from "../picture/paymentbg.webp";
 
 const PaymentForm = () => {
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
-  const bg = {
-    backgroundImage: `url(${paymentBg})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center center",
-  };
+ const bg = {
+  backgroundImage: `url(${paymentBg})`,
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
+};
+
+
   const [paymentData, setPaymentData] = useState({
     cardNumber: "",
     cardHolder: "",
@@ -26,9 +29,34 @@ const PaymentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(paymentData)
-    navigate("/user/payment-success")
-    
+    console.log(paymentData);
+
+    // 🔔 EmailJS code
+    const templateParams = {
+  to_name: paymentData.cardHolder,
+  message: `Payment done using card ending in ${paymentData.cardNumber.slice(-4)}.`,
+  to_email: "lakshmisowjanya2005@gmail.com",
+};
+
+
+    emailjs
+      .send(
+        "service_d9iwp4k",      // replace with your EmailJS service ID
+        "template_fa1itwo",     // replace with your EmailJS template ID
+        templateParams,
+        "8uhKfF9iNWHYqJTNS"          // replace with your EmailJS public key
+      )
+      .then(
+        () => {
+          alert("Payment successful! Confirmation email sent.");
+          navigate("/user/payment-success");
+        },
+        (error) => {
+          console.error("Email send failed:", error);
+          alert("Payment succeeded, but failed to send confirmation email.");
+          navigate("/user/payment-success");
+        }
+      );
   };
 
   return (

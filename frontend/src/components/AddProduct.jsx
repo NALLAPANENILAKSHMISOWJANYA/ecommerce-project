@@ -36,7 +36,7 @@ function AddProduct() {
       });
       alert("Product Added Successfully......");
       // Redirect to the admin page after successful submission
-      navigate("/admin");
+      navigate("/admin/admin");
     } catch (error) {
       alert(error.response.data.message);
       console.error("Error adding product:", error.response.data);
@@ -102,11 +102,11 @@ function AddProduct() {
             onChange={handleChange}
           >
             <option value="">Select a category</option>
-          <option value="classic flavours">Classic flavours</option>
-          <option value="premium flavours">Premium flavours</option>
-          <option value="seasonal flavours">Seasonal flavours</option>
-          <option value="cones and bars">Cones and Bars</option>
-          <option value="fruit based flavours">Fruit based flavours</option>
+            <option value="classic flavours">Classic flavours</option>
+            <option value="premium flavours">Premium flavours</option>
+            <option value="seasonal flavours">Seasonal flavours</option>
+            <option value="cones and bars">Cones and Bars</option>
+            <option value="fruit based flavours">Fruit based flavours</option>
           </select>
         </div>
 

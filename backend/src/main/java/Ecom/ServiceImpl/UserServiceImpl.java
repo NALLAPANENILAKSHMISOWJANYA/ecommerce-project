@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 		User newCustomer = new User();
 		newCustomer.setEmail(customer.getEmail());
-		newCustomer.setPassword(customer.getPassword());
+		newCustomer.setPassword(passwordEncoder.encode(customer.getPassword()));
 		newCustomer.setFirstName(customer.getFirstName());
 		newCustomer.setLastName(customer.getLastName());
 		newCustomer.setPhoneNumber(customer.getPhoneNumber());
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 		}
 		User newAdmin = new User();
 		newAdmin.setEmail(customer.getEmail());
-		newAdmin.setPassword(customer.getPassword());
+		newAdmin.setPassword(passwordEncoder.encode(customer.getPassword()));
 		newAdmin.setFirstName(customer.getFirstName());
 		newAdmin.setLastName(customer.getLastName());
 		newAdmin.setPhoneNumber(customer.getPhoneNumber());
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 	public User changePassword(Integer userId, UserDTO customer) throws UserException {
 		User user = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
 		if (customer.getNewPassword().length() >= 5 && customer.getNewPassword().length() <= 10) {
-			user.updatePassword(customer.getNewPassword(), passwordEncoder);
+			user.setPassword(passwordEncoder.encode(customer.getNewPassword()));
 			return userRepository.save(user);
 		} else {
 			throw new UserException("provide valid  password");

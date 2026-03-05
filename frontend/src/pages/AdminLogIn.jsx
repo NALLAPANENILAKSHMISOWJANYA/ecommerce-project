@@ -7,6 +7,7 @@ const formData = {
   username: "",
   password: "",
 };
+
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState(formData);
@@ -17,16 +18,18 @@ const AdminLogin = () => {
       document.title = "Ecommerse App";
     };
   }, []);
+
   const setHandlerChange = (e) => {
     const val = e.target.value;
     setForm({ ...form, [e.target.name]: val });
   };
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
       const authHeader = `Basic ${btoa(`${form.username}:${form.password}`)}`;
-      const response = await axios.get("http://localhost:8080/ecom/signIn", {
+      const response = await axios.get("http://localhost:8082/ecom/signIn", {
         headers: {
           Authorization: authHeader,
         },
@@ -54,39 +57,83 @@ const AdminLogin = () => {
   const { username, password } = form;
 
   return (
-    <>
-      <h2 style={{ textAlign: "center", color: "White", margin: "10px" }}>
-        WELCOME TO ADMIN LOGIN PAGE
-      </h2>
-
-      <div className="loginConatiner">
-        <div className="login-form">
-          <h2 style={{ textAlign: "center" }}>Admin LogIn </h2>
-          <form onSubmit={submitHandler}>
-            <div className="form-group">
-              <label htmlFor="username">Username:</label>
-              <input
-                id="username"
-                type="text"
-                name="username"
-                value={username}
-                onChange={setHandlerChange}
-              />
-            </div>
-            <br />
-            <div className="form-group">
-              <label>Password:</label>
-              <input
-                type="password" name="password" value={password} onChange={setHandlerChange}
-              />
-            </div>
-            <div className="form-group">
-              <input type="submit" value="Login" />
-            </div>
-          </form>
+    <div className="login-container">
+      <button 
+        className="home-button"
+        onClick={() => navigate("/")}
+        style={{
+          position: "absolute",
+          top: "80px",
+          left: "20px",
+          padding: "8px 16px",
+          backgroundColor: "#ff6b6b",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontSize: "0.9rem",
+          fontWeight: "500",
+          transition: "background 0.3s ease"
+        }}
+      >
+        Home
+      </button>
+      <div className="login-content">
+        <div className="login-image">
+          <img 
+            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+            alt="Ice Cream Delight"
+          />
+        </div>
+        <div className="login-form-container">
+          <div className="login-form">
+            <h1>Admin Login</h1>
+            <p>Sign in to access admin dashboard</p>
+            
+            <form onSubmit={submitHandler}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={username}
+                  onChange={setHandlerChange}
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={password}
+                  onChange={setHandlerChange}
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              
+              <button 
+                type="submit" 
+                className="login-button"
+                style={{
+                  padding: "0.6rem 1.2rem",
+                  fontSize: "0.9rem",
+                  width: "auto",
+                  minWidth: "120px"
+                }}
+              >
+                Sign In
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -50,7 +50,7 @@ const Address = ({ onclose }) => {
           <h2 style={{ textAlign: "center" }}>Required Address</h2>
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="flatNo">Flat No:</label>
+              <label htmlFor="flatNo">Shop No:</label>
               <input
                 type="text"
                 name="flatNo"

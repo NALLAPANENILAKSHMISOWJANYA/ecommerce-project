@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../comp_css/Footer.css";
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email) {
+      setSubscribed(true);
+      setEmail("");
+      // Reset the thank you message after 3 seconds
+      setTimeout(() => {
+        setSubscribed(false);
+      }, 3000);
+    }
+  };
+
   return (
     <div className="footer">
       <div className="footer-grid">
@@ -42,15 +57,23 @@ const Footer = () => {
         </div>
         <div className="footer-section">
           <h4>SUBSCRIBE</h4>
-          <div className="subscribe-box">
-            <input type="text" placeholder="Enter your email" />
-            <button>SUBSCRIBE</button>
-          </div>
-          <p>
-            Register now to get updates on promotions and coupons
-          </p>
-          <p className="admin-link" >
-            <Link to="/admin-Login"  style={{color:"white"}}>Admin Access</Link>
+          <form onSubmit={handleSubscribe} className="subscribe-box">
+            <input 
+              type="email" 
+              placeholder="Enter your email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+          {subscribed ? (
+            <p className="subscribe-message">Thanks for subscribing!</p>
+          ) : (
+            <p>Register now to get updates on promotions and coupons</p>
+          )}
+          <p className="admin-link">
+            <Link to="/admin-Login" style={{color:"white"}}>Admin Access</Link>
           </p>
         </div>
       </div>

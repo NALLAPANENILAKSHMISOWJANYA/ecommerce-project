@@ -6,6 +6,7 @@ import {
   faCartShopping,
   faSearch,
   faUser,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
@@ -22,12 +23,11 @@ const Navbar = () => {
   const handleLoginClick = () => {
     navigate("/login");
   };
-
   const handleLogoutClick = () => {
     localStorage.removeItem("userid");
     localStorage.removeItem("jwtToken");
-    localStorage.removeItem("cartid")
-    localStorage.removeItem("name")
+    localStorage.removeItem("cartid");
+    localStorage.removeItem("name");
 
     alert("Logout Successfully.....");
     navigate("/");
@@ -60,12 +60,21 @@ const Navbar = () => {
         <div
           style={iconstyle}
           onClick={() => {
+            navigate("/contact");
+          }}
+          className="contact-button"
+        >
+          <FontAwesomeIcon icon={faEnvelope} className="cart-icon" />
+          <p style={{ margin: "4px" }}>Contact</p>
+        </div>
+        <div
+          style={iconstyle}
+          onClick={() => {
             navigate("/user/cart");
           }}
           className="cart-button"
         >
           <FontAwesomeIcon icon={faCartShopping} className="cart-icon" />
-
           <p style={{ margin: "4px" }}>Cart</p>
         </div>
         {userId ? (
@@ -98,7 +107,7 @@ const Navbar = () => {
                 navigate("/register-user");
               }}
             >
-              SignIn
+              SignUp
             </div>
           </>
         )}

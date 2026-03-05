@@ -8,9 +8,23 @@ import UpdateProductForm from "./UpdateProductForm";
 const AllProductAdmin = () => {
   const { productId } = useParams();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [nameSearch, setNameSearch] = useState("");
   const [deleted, setDeleted] = useState(false);
-  const [showUpdateModal, setShowUpdateModal] = useState(false); 
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const filterProducts = (category, search, data) => {
+    let filtered = data;
+    if (category !== "All") {
+      filtered = filtered.filter(p => p.category === category);
+    }
+    if (search !== "") {
+      filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
+    }
+    setFilteredProducts(filtered);
+  };
 
   const updateProduct = (productIdToUpdate) => {
     const productToUpdate = products.find(
@@ -20,17 +34,18 @@ const AllProductAdmin = () => {
     setShowUpdateModal(true);
   };
 
-  const closeUpdateModal = () => {//sending function as a props to the updateproduct form
+  const closeUpdateModal = () => {
     setSelectedProduct(null);
     setShowUpdateModal(false);
   };
-  
-  const handleUpdate = (updatedProduct) => {//sending function as a props to the updateproduct form
+
+  const handleUpdate = (updatedProduct) => {
     api
       .put(`/ecom/products/update/${updatedProduct.productId}`, updatedProduct)
       .then((response) => {
-        console.log(response.data);
-        console.log("working.....");
+        const updatedList = products.map(p => p.productId === updatedProduct.productId ? response.data : p);
+        setProducts(updatedList);
+        filterProducts(selectedCategory, nameSearch, updatedList);
         closeUpdateModal();
       })
       .catch((error) => {
@@ -43,28 +58,28 @@ const AllProductAdmin = () => {
       .delete(`/ecom/products/${productIdToDelete}`)
       .then((response) => {
         alert(response.data);
-
         const updatedProducts = products.filter(
           (product) => product.productId !== productIdToDelete
         );
         setProducts(updatedProducts);
+        filterProducts(selectedCategory, nameSearch, updatedProducts);
         setDeleted(true);
       })
       .catch((error) => {
         console.error("Error deleting product: ", error);
-        alert(error.response.data.message);
+        alert(error.response?.data?.message || "Error deleting product");
       });
   };
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8080/ecom/products/all?sort=desc")
+    api
+      .get("/ecom/products/all?sort=desc")
       .then((response) => {
         const sortedProducts = response.data.sort(
           (a, b) => b.productId - a.productId
         );
         setProducts(sortedProducts);
-
+        filterProducts(selectedCategory, nameSearch, sortedProducts);
         setDeleted(false);
       })
       .catch((error) => {
@@ -72,22 +87,47 @@ const AllProductAdmin = () => {
       });
   }, [productId, deleted]);
 
+  useEffect(() => {
+    filterProducts(selectedCategory, nameSearch, products);
+  }, [selectedCategory, nameSearch]);
+
   return (
     <>
       <h1 style={{ color: "green", textAlign: "center", margin: "5px" }}>
         ALL Live Products{" "}
       </h1>
 
+      <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', marginBottom: '20px', padding: '10px', background: '#f8f9fa', borderRadius: '8px' }}>
+        <div>
+          <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Filter By Category:</label>
+          <select value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)} style={{ padding: '8px', borderRadius: '4px' }}>
+            <option value="All">All Categories</option>
+            <option value="classic flavours">Classic flavours</option>
+            <option value="premium flavours">Premium flavours</option>
+            <option value="seasonal flavours">Seasonal flavours</option>
+            <option value="cones and bars">Cones and Bars</option>
+            <option value="fruit based flavours">Fruit based flavours</option>
+          </select>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={nameSearch}
+            onChange={(e) => setNameSearch(e.target.value)}
+            style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', minWidth: '200px' }}
+          />
+        </div>
+      </div>
+
       {showUpdateModal && (
         <div className="update-modal">
-          <UpdateProductForm product={selectedProduct} onUpdate={handleUpdate}onClose={closeUpdateModal}
-          />
+          <UpdateProductForm product={selectedProduct} onUpdate={handleUpdate} onClose={closeUpdateModal} />
         </div>
       )}
 
-
       <div className="product-container1">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div className="product-card1" key={product.productId}>
             <div className="product-image11">
               <img src={product.imageUrl} alt={product.name} />
@@ -115,7 +155,7 @@ const AllProductAdmin = () => {
             </div>
           </div>
         ))}
-      </div> 
+      </div>
     </>
   );
 };
