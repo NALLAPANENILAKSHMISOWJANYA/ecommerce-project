@@ -1,0 +1,146 @@
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  padding: 15px 80px;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.logo h3 {
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(90deg, #fff, #fdcb6e);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo h3:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  flex: 0 1 400px;
+}
+
+.search-bar input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  height: 44px;
+  padding: 0 45px 0 20px;
+  color: white;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.iconbutton {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.cart-button,
+.login-button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.cart-button:hover,
+.login-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--accent);
+}
+
+.cart-icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.iconbutton p {
+  margin: 0;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Logout text link */
+.iconbutton>div:last-child {
+  opacity: 0.8;
+  font-size: 14px;
+  transition: opacity 0.3s;
+}
+
+.iconbutton>div:last-child:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 15px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-bar {
+    width: 100%;
+    order: 3;
+    flex: none;
+  }
+
+  .iconbutton {
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+  }
+}
