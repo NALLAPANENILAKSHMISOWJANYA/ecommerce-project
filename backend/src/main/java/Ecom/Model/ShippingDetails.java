@@ -15,49 +15,48 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-
 @Data
 @Entity
-@Table(name = "Shipping")
+@Table(name = "shipping_details")
 public class ShippingDetails {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shipping_id")
-    private Long shippingId;
 
-    @NotNull(message = "Address Is Mandatory ,can Not Be Null")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "shipping_id")
+	private Long shippingId;
+
+	@NotNull(message = "Address Is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Address Is Mandatory")
-    @Column(name = "address")
-    private String address;
+	@Column(name = "address")
+	private String address;
 
-    @NotNull(message = "City Is Mandatory ,can Not Be Null")
+	@NotNull(message = "City Is Mandatory ,can Not Be Null")
 	@NotBlank(message = "City Is Mandatory")
-    @Column(name = "city")
-    private String city;
+	@Column(name = "city")
+	private String city;
 
-    @NotNull(message = "State Is Mandatory ,can Not Be Null")
-   	@NotBlank(message = "State Is Mandatory")
-    @Column(name = "state")
-    private String state;
+	@NotNull(message = "State Is Mandatory ,can Not Be Null")
+	@NotBlank(message = "State Is Mandatory")
+	@Column(name = "state")
+	private String state;
 
-    @Column(name = "country")
-    private String country;
+	@Column(name = "country")
+	private String country;
 
-    @NotNull(message = "Postal Code Is Mandatory ,can Not Be Null")
-   	@NotBlank(message = "Postal Code Is Mandatory")
-    @Column(name = "postal_code")
-    private String postalCode;
-    
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "shipper_id")
-    private Shipper shipper;
-    
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name = "order_id")
-    private Orders orders;
+	@NotNull(message = "Postal Code Is Mandatory ,can Not Be Null")
+	@NotBlank(message = "Postal Code Is Mandatory")
+	@Column(name = "postal_code")
+	private String postalCode;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "shipper_id")
+	private Shipper shipper;
+
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "order_id")
+	private Orders orders;
 
 	public Long getShippingId() {
 		return shippingId;
@@ -122,6 +121,5 @@ public class ShippingDetails {
 	public void setOrders(Orders orders) {
 		this.orders = orders;
 	}
-    
-}
 
+}

@@ -16,11 +16,11 @@ import Ecom.Service.ProductService;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-	 @Autowired
+    @Autowired
     private final ProductRepository productRepository;
 
     // Constructor for dependency injection
-   
+
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -47,7 +47,7 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setPrice(updatedProduct.getPrice());
         existingProduct.setImageUrl(updatedProduct.getImageUrl());
         existingProduct.setDescription(updatedProduct.getDescription());
-        
+
         productRepository.save(existingProduct);
         return existingProduct;
     }
@@ -74,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
         } else {
             products = productRepository.findAll(sort);
         }
-        if (products.isEmpty()) {
-            throw new ProductException("Product List Empty");
+        if (products == null) {
+            products = List.of();
         }
 
         return products;
@@ -103,7 +103,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getSingleProduct(Integer productId) {
 
-        Product single = productRepository.findById(productId).orElseThrow(() -> new ProductException("Product not found"));
+        Product single = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductException("Product not found"));
         return single;
     }
 }

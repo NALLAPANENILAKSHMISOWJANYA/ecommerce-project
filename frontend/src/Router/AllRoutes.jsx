@@ -12,10 +12,9 @@ import SingleProduct from "../pages/SingleProduct";
 import Cart from "../pages/Cart";
 import ShippingDetails from "../pages/ShippingDetails";
 import { Routes, Route } from "react-router-dom";
-import { Privateroute,Privaterouteadmin } from "../Router/ProtectedRoute";
+import { Privateroute, Privaterouteadmin } from "../Router/ProtectedRoute";
 import Admin from "../pages/Admin";
 import NotFound from "../components/NotFound";
-import Contact from "../pages/Contact";
 import CategoryProducts from "../pages/CategoryProducts";
 
 const AllRoutes = () => {
@@ -25,7 +24,6 @@ const AllRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/product" element={<Product />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/category/:categoryId" element={<CategoryProducts />} />
 
         <Route path="/user" element={<Privateroute />}>

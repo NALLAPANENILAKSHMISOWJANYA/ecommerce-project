@@ -20,7 +20,7 @@ const Product = () => {
         (product) => product.category === category
       );
     }
-    
+
     if (priceOrder === "LowToHigh") {
       filteredProducts = filteredProducts.sort((a, b) => a.price - b.price);
     } else if (priceOrder === "HighToLow") {
@@ -69,96 +69,90 @@ const Product = () => {
   return (
     <div className="product-page">
       <div className="filter-section">
-        <h2>Filter</h2>
-        <hr />
-        <label>Category</label>
-        <select
-          value={selectedCategory}
-          onChange={(e) => {
-            setSelectedCategory(e.target.value);
-          }}
-        >
-          <option value="All">All</option>
-          <option value="classic flavours">Classic flavours</option>
-          <option value="premium flavours">Premium flavours</option>
-          <option value="seasonal flavours">Seasonal flavours</option>
-          <option value="cones and bars">Cones and Bars</option>
-          <option value="fruit based flavours">Fruit based flavours</option>
-        </select>
-        <br />
-        <label>Price:</label>
-        <div>
+        <div className="filter-header">
+          <div className="filter-icon-circle">
+            <i className="fa-solid fa-filter"></i>
+          </div>
+          <h2>Filter</h2>
+        </div>
+
+        <div className="filter-group">
+          <label>Pick Color</label>
+          <div className="color-swatches">
+            <div className="swatch" style={{ background: '#ae7a7a' }}></div>
+            <div className="swatch" style={{ background: '#d4885c' }}></div>
+            <div className="swatch" style={{ background: '#6c5ce7' }}></div>
+            <div className="swatch" style={{ background: '#00cec9' }}></div>
+            <div className="swatch" style={{ background: '#55efc4' }}></div>
+          </div>
+        </div>
+
+        <div className="filter-group">
+          <label>Category</label>
           <select
-            value={priceOrder}
-            onChange={(e) => {
-              setPriceOrder(e.target.value);
-            }}
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="All">All</option>
-            <option value="LowToHigh">Low to High</option>
-            <option value="HighToLow">High To Low</option>
+            <option value="All">All Categories</option>
+            <option value="classic flavours">Classic Flavours</option>
+            <option value="premium flavours">Premium Flavours</option>
+            <option value="seasonal flavours">Seasonal Flavours</option>
+            <option value="cones and bars">Cones and Bars</option>
+            <option value="fruit based flavours">Fruit Based Flavours</option>
           </select>
         </div>
 
-        <br />
-        <div>
-          <h4>By Name</h4>
-          <input
-            type="text"
-            placeholder="Search by name"
-            value={nameSearch}
-            onChange={(e) => setNameSearch(e.target.value)}
-          />
+        <div className="filter-group">
+          <label>Brand</label>
+          <div><input type="checkbox" /> Reymond</div>
+          <div><input type="checkbox" defaultChecked /> Blue world</div>
+          <div><input type="checkbox" defaultChecked /> Vanhuesen</div>
+          <div><input type="checkbox" /> Bimboss</div>
+          <div><input type="checkbox" /> Vanhuesen</div>
+        </div>
+
+        <div className="filter-group">
+          <label>Price</label>
+          <div><input type="radio" name="price" /> 50 - 100</div>
+          <div><input type="radio" name="price" /> 100 - 150</div>
+          <div><input type="radio" name="price" /> 150 - 200</div>
+          <div><input type="radio" name="price" defaultChecked /> 200 - 250</div>
+          <div><input type="radio" name="price" /> 250 - 300</div>
         </div>
       </div>
 
       <div className="product-list">
         {filteredProducts.length === 0 ? (
-          <h1
-            style={{
-              textAlign: "center",
-              margin: "50px",
-              color: "green",
-              width: "800px",
-            }}
-          >
-            Product Not found ....
-          </h1>
+          <div className="no-products">
+            <h1>No products found</h1>
+          </div>
         ) : (
           filteredProducts.map((product) => (
             <div className="product-card" key={product.productId}>
-              <div className="product-image1">
-                <img src={product.imageUrl} alt={product.name} />
+              <div className="card-top">
+                <div className="badge">-32%</div>
+                <div className="wishlist-icon">
+                  <i className="fa-regular fa-heart"></i>
+                </div>
+                <Link to={`/product/${product.productId}`} className="product-image1">
+                  <img src={product.imageUrl} alt={product.name} />
+                </Link>
               </div>
               <div className="product-info">
-                <h2>{product.name}</h2>
-                <p>
-                  <strong>Category :</strong> {product.category}
-                </p>
-                <p>
-                  <strong>Description: </strong>
-                  {product.description.substring(0, 25)}
-                </p>
-                <h2 className="product-price">Price: ₹ {product.price}</h2>
-                <p>
-                  {" "}
-                  <strong>Rating :</strong>
-                  {product.reviews.length === 0
-                    ? "Not Available"
-                    : product.reviews[0].rating}
-                </p>
+                <h3>{product.name}</h3>
 
-                <div>
-                  <button onClick={() => addProductToCart(product.productId)}>
-                    Add to Cart
-                  </button>
-                  <button>
-                    <Link
-                      to={`/product/${product.productId}`}
-                      style={{ textDecoration: "none", color: "white" }}
-                    >
-                      View
-                    </Link>
+                <div className="rating-stars">
+                  {"★★★★★".split("").map((s, i) => (
+                    <span key={i} style={{ color: '#ffc107' }}>{s}</span>
+                  ))}
+                  <span>(350)</span>
+                </div>
+
+                <div className="product-price">₹{product.price}</div>
+
+                <div className="product-actions">
+                  <button className="add-btn" onClick={() => addProductToCart(product.productId)}>
+                    <i className="fa-solid fa-cart-shopping"></i> Add to cart
                   </button>
                 </div>
               </div>

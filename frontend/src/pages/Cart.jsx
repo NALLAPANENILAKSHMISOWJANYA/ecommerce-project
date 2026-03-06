@@ -24,7 +24,7 @@ const Cart = () => {
 
   const orderPlaced = () => {
     apiCallOrderPlaced();
-    
+
   };
   const fetchCartData = () => {
     api
@@ -40,55 +40,57 @@ const Cart = () => {
 
   useEffect(() => {
     document.title = "Ecommerse | Cart";
-    fetchCartData();
-  }, [cartId, totalAmount]);
+    if (cartId) {
+      fetchCartData();
+    }
+  }, [cartId]);
+
   const emptyCart = () => {
     api
       .delete(`/ecom/cart/empty-Cart/${cartId}`)
-      .then((response) => {
-        setTotalAmount(response.data.toalAmout);
-        alert("All cart Item remove");
-        fetchCartData();
+      .then(() => {
+        setTotalAmount(0);
+        setCartData({ cartItems: [] });
+        alert("All cart items removed");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("Cart is empty");
       });
   };
 
-  const removeProductfromCart = (productid) => {
+  const removeProductfromCart = (productId) => {
     api
-      .delete(`/ecom/cart/remove-product/${cartId}/${productid}`)
-      .then((response) => {
+      .delete(`/ecom/cart/remove-product/${cartId}/${productId}`)
+      .then(() => {
         alert("Product removed from cart");
         fetchCartData();
       })
-      .catch((error) => {
-        alert("Cart is empty");
+      .catch(() => {
+        alert("Error removing item");
       });
   };
 
-  const increaseCount = (productid) => {
+  const incrementQuantity = (productId) => {
     api
-      .put(`/ecom/cart/increase-productQty/${cartId}/${productid}`)
+      .put(`/ecom/cart/increase-productQty/${cartId}/${productId}`)
       .then((response) => {
+        setCartData(response.data);
         setTotalAmount(response.data.totalAmount);
-        fetchCartData();
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Error increasing quantity:", error);
       });
   };
 
-  const decreaseCount = (productid) => {
+  const decrementQuantity = (productId) => {
     api
-      .put(`ecom/cart/decrease-productQty/${cartId}/${productid}`)
+      .put(`/ecom/cart/decrease-productQty/${cartId}/${productId}`)
       .then((response) => {
+        setCartData(response.data);
         setTotalAmount(response.data.totalAmount);
-        fetchCartData();
       })
       .catch((error) => {
-        console.log(error);
-        alert("Product can be further decrese....");
+        console.error("Error decreasing quantity:", error);
       });
   };
 
@@ -104,74 +106,53 @@ const Cart = () => {
               <div className="cartproduct-info">
                 <h2>{item.product.name}</h2>
                 <p>Category: {item.product.category}</p>
-                <p>Description: {item.product.description}</p>
-                <h2 className="cartproduct-price">
-                  Price: ₹ {item.product.price}
-                </h2>
+                <p className="description">
+                  {item.product.description.substring(0, 60)}...
+                </p>
+                <div className="cartproduct-price">₹{item.product.price}</div>
+
                 <div className="increaseBtn">
-                  <button onClick={() => increaseCount(item.product.productId)}>
-                    +
-                  </button>
-                  <span
-                    style={{
-                      fontSize: "25px",
-                      color: "red",
-                      textAlign: "center",
-                    }}
-                  >
+                  <button onClick={() => decrementQuantity(item.product.productId)}>−</button>
+                  <span style={{ fontSize: "18px", fontWeight: "600", minWidth: "20px", textAlign: "center" }}>
                     {item.quantity}
                   </span>
-                  <button onClick={() => decreaseCount(item.product.productId)}>
-                    -
-                  </button>
+                  <button onClick={() => incrementQuantity(item.product.productId)}>+</button>
                 </div>
-                <div>
-                  <button
-                    onClick={() =>
-                      removeProductfromCart(item.product.productId)
-                    }
-                  >
-                    Remove
-                  </button>
-                </div>
+
+                <button
+                  className="remove-btn"
+                  onClick={() => removeProductfromCart(item.product.productId)}
+                >
+                  Remove Item
+                </button>
               </div>
             </div>
           ))}
         </div>
       ) : (
         <div className="empty-cart-message">
-          <h1>
-            Your cart is empty. <Link to="/">Shop Now</Link>
-          </h1>
+          <h1>Your cart feels lonely.</h1>
+          <p>Explore our latest flavors and fill it with joy!</p>
+          <Link to="/">Explore Products</Link>
         </div>
       )}
 
-      <div className="cart-details">
-        <h2>Total Cart Amount: </h2>
-        <h2>${"   " + totalAmount}</h2>
-        <div className="counter-box">
-          <div>
-            <button onClick={orderPlaced}>Order Placed</button>
-          </div>
-          <div>
+      {cartData.cartItems?.length > 0 && (
+        <div className="cart-details">
+          <h2>ORDER SUMMARY</h2>
+          <h2>₹{totalAmount}</h2>
+          <div className="counter-box">
+            <button onClick={orderPlaced}>Proceed to Checkout</button>
+            <button onClick={() => emptyCart(cartId)}>Clear All Items</button>
             <button
-              onClick={() => emptyCart(cartId)}
-              style={{ backgroundColor: "red" }}
+              style={{ backgroundColor: '#f1f2f6', color: '#2d3436' }}
+              onClick={() => navigate("/user/order-details")}
             >
-              Empty Cart
-            </button>
-          </div>
-          <div>
-            <button
-              onClick={() => {
-                navigate("/user/order-details");
-              }}
-            >
-              Order Page
+              Order History
             </button>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

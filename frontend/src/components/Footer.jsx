@@ -35,7 +35,6 @@ const Footer = () => {
           <h4>COMPANY</h4>
           <ul>
             <li>carniwalls@gmail.com</li>
-            <li>Contact Us</li>
             <li>Mobile.no: 9999999999</li>
           </ul>
         </div>
@@ -58,9 +57,9 @@ const Footer = () => {
         <div className="footer-section">
           <h4>SUBSCRIBE</h4>
           <form onSubmit={handleSubscribe} className="subscribe-box">
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
+            <input
+              type="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -73,7 +72,7 @@ const Footer = () => {
             <p>Register now to get updates on promotions and coupons</p>
           )}
           <p className="admin-link">
-            <Link to="/admin-Login" style={{color:"white"}}>Admin Access</Link>
+            <Link to="/admin-Login" style={{ color: "white" }}>Admin Access</Link>
           </p>
         </div>
       </div>

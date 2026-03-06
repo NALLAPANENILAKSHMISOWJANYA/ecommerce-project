@@ -19,34 +19,34 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Reviews")
+@Table(name = "reviews")
 public class Review {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private Long reviewId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "review_id")
+	private Long reviewId;
 
-    @Column(name = "rating")
-    @Size(max = 5,message = "Pls provide Rating  ,can Not Be Null")
-    private Integer rating;
+	@Column(name = "rating")
+	@Size(max = 5, message = "Pls provide Rating  ,can Not Be Null")
+	private Integer rating;
 
-    @Column(name = "comment")
-    @NotNull(message = "Pls provide comment  ,can Not Be Null")
-    @NotBlank(message = "Comment should be Filled")
-    private String comment;
+	@Column(name = "comment")
+	@NotNull(message = "Pls provide comment  ,can Not Be Null")
+	@NotBlank(message = "Comment should be Filled")
+	private String comment;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+	@Column(name = "created_at", columnDefinition = "DATETIME")
+	private LocalDateTime createdAt;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
 
 	public Long getReviewId() {
 		return reviewId;

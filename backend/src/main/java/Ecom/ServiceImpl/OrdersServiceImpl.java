@@ -37,11 +37,11 @@ public class OrdersServiceImpl implements OrdersService {
 
     // Constructor for dependency injection
     public OrdersServiceImpl(OrderRepository orderRepository,
-                             UserRepository userRepository,
-                             OrderItemRepository orderItemRepository,
-                             ProductRepository productRepository,
-                             CartItemRepository cartItemRepository,
-                             CartRepository cartRepository) {
+            UserRepository userRepository,
+            OrderItemRepository orderItemRepository,
+            ProductRepository productRepository,
+            CartItemRepository cartItemRepository,
+            CartRepository cartRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
         this.orderItemRepository = orderItemRepository;
@@ -56,7 +56,7 @@ public class OrdersServiceImpl implements OrdersService {
                 .orElseThrow(() -> new UserException("User Not Found In Database"));
 
         Cart usercart = existingUser.getCart();
-        if(usercart.getTotalAmount() == 0){
+        if (usercart.getTotalAmount() == 0) {
             throw new OrdersException("Add item to the cart first.......");
         }
         Integer cartId = usercart.getCartId();
@@ -98,7 +98,7 @@ public class OrdersServiceImpl implements OrdersService {
         orderdata.setOrderAmount(newOrder.getTotalAmount());
         orderdata.setStatus("Pending");
         orderdata.setPaymentStatus("Pending");
-        orderdata.setOrderDate("Current Date");  // Fixed typo from "Currebt Date" to "Current Date"
+        orderdata.setOrderDate("Current Date"); // Fixed typo from "Currebt Date" to "Current Date"
         return orderdata;
     }
 
@@ -111,36 +111,20 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<Orders> getAllUserOrder(Integer userId) throws OrdersException {
-        try {
-            List<Orders> orders = orderRepository.getAllOrderByUserId(userId);
-            if (orders.isEmpty()) {
-                throw new OrdersException("No orders found for the user in the database.");
-            }
-            return orders;
-        } catch (Exception e) {
-            throw new OrdersException("Failed to fetch orders for the user: " + e.getMessage());
-        }
+        List<Orders> orders = orderRepository.getAllOrderByUserId(userId);
+        return orders != null ? orders : new ArrayList<>();
     }
 
     @Override
     public List<Orders> viewAllOrders() throws OrdersException {
         List<Orders> orders = orderRepository.findAll();
-
-        if (orders.isEmpty()) {
-            throw new OrdersException("No orders found in the database.");
-        }
-        return orders;
+        return orders != null ? orders : new ArrayList<>();
     }
 
     @Override
     public List<Orders> viewAllOrderByDate(Date date) throws OrdersException {
         List<Orders> orders = orderRepository.findByOrderDateGreaterThanEqual(date);
-
-        if (orders.isEmpty()) {
-            throw new OrdersException("No orders found for the given date.");
-        }
-
-        return orders;
+        return orders != null ? orders : new ArrayList<>();
     }
 
     @Override

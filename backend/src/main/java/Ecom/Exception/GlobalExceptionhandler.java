@@ -21,7 +21,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -33,7 +33,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.NOT_FOUND);
 
 	}
 
@@ -46,7 +46,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -69,7 +69,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -81,7 +81,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -93,7 +93,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -105,7 +105,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -117,7 +117,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -129,7 +129,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -141,7 +141,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_REQUEST);
 
 	}
 
@@ -153,7 +153,7 @@ public class GlobalExceptionhandler {
 		e1.setLocalDateTimes(LocalDateTime.now());
 		e1.setDesc(req.getDescription(false));
 
-		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.BAD_GATEWAY);
+		return new ResponseEntity<MyErrorClass>(e1, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
 

@@ -22,49 +22,48 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Products")
+@Table(name = "products")
 public class Product {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private Integer productId;
 
-    @NotNull(message = "Product name is Mandatory ,can Not Be Null")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "product_id")
+	private Integer productId;
+
+	@NotNull(message = "Product name is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Product name is Mandatory")
-    @Column(name = "name")
-    private String name;
-    
-    @NotNull(message = "Product Image is Mandatory ,can Not Be Null")
+	@Column(name = "name")
+	private String name;
+
+	@NotNull(message = "Product Image is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Product Image is Mandatory")
-    @Column(name = "imageUrl")
-    private String imageUrl;
-    
-    @Column(name = "isAvailable")
-    private boolean isAvailable=true;
-    
-    @NotNull(message = "Product description is Mandatory ,can Not Be Null")
-  	@NotBlank(message = "Product description is Mandatory")
-    @Size(min=10,max = 50)
-    @Column(name = "description")
-    private String description;
+	@Column(name = "imageUrl")
+	private String imageUrl;
 
-    @NotNull(message = "Product price is Mandatory ,can Not Be Null")
-    @Column(name = "price")
-    private Double price;
- 
-    @NotNull(message = "Product category_name is Mandatory ,can Not Be Null")
-  	@NotBlank(message = "Product category_name is Mandatory")
-    @Column(name = "category_name")
-    private String category; 
-    
+	@Column(name = "isAvailable")
+	private boolean isAvailable = true;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<OrderItem> orderItem= new ArrayList<>();;
+	@NotNull(message = "Product description is Mandatory ,can Not Be Null")
+	@NotBlank(message = "Product description is Mandatory")
+	@Size(min = 10, max = 500)
+	@Column(name = "description")
+	private String description;
 
-    @OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
-    private List<Review> reviews= new ArrayList<>();
+	@NotNull(message = "Product price is Mandatory ,can Not Be Null")
+	@Column(name = "price")
+	private Double price;
+
+	@NotNull(message = "Product category_name is Mandatory ,can Not Be Null")
+	@NotBlank(message = "Product category_name is Mandatory")
+	@Column(name = "category_name")
+	private String category;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<OrderItem> orderItem = new ArrayList<>();;
+
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+	private List<Review> reviews = new ArrayList<>();
 
 	public Integer getProductId() {
 		return productId;
@@ -137,7 +136,5 @@ public class Product {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	};
-    
-   
-}
 
+}

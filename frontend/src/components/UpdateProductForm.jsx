@@ -48,6 +48,8 @@ const UpdateProductForm = ({ product, onUpdate, onClose }) => {
                 name="description"
                 value={updatedProduct.description}
                 onChange={handleChange}
+                minLength="10"
+                maxLength="500"
               />
             </div>
             <div>

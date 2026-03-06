@@ -12,23 +12,23 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "OrderItem")
+@Table(name = "order_items")
 public class OrderItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "orderItem_Id")
-    private Integer orderItemId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "orderItem_Id")
+	private Integer orderItemId;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+	@Column(name = "order_id")
+	private Integer orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Product product;
 
-    @Column(name = "quantity")
-    private Integer quantity;
+	@Column(name = "quantity")
+	private Integer quantity;
 
 	public Integer getOrderItemId() {
 		return orderItemId;
@@ -61,6 +61,5 @@ public class OrderItem {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-
 
 }

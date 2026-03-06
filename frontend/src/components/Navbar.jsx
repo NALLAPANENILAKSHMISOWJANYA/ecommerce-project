@@ -6,7 +6,6 @@ import {
   faCartShopping,
   faSearch,
   faUser,
-  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
@@ -57,16 +56,6 @@ const Navbar = () => {
       </div>
 
       <div className="iconbutton">
-        <div
-          style={iconstyle}
-          onClick={() => {
-            navigate("/contact");
-          }}
-          className="contact-button"
-        >
-          <FontAwesomeIcon icon={faEnvelope} className="cart-icon" />
-          <p style={{ margin: "4px" }}>Contact</p>
-        </div>
         <div
           style={iconstyle}
           onClick={() => {

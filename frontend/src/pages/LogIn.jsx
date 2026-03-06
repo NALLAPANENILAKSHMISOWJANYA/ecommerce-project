@@ -11,13 +11,13 @@ const formData = {
 const Login = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState(formData);
-  
+
   useEffect(() => {
     document.title = 'Ecommerse | LogIn';
-    return () => { 
+    return () => {
       document.title = 'Ecommerse App';
     };
-  }, []); 
+  }, []);
 
   const setHandlerChange = (e) => {
     const val = e.target.value;
@@ -58,7 +58,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <button 
+      <button
         className="home-button"
         onClick={() => navigate("/")}
         style={{
@@ -80,8 +80,8 @@ const Login = () => {
       </button>
       <div className="login-content">
         <div className="login-image">
-          <img 
-            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+          <img
+            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
             alt="Ice Cream Delight"
           />
         </div>
@@ -89,21 +89,21 @@ const Login = () => {
           <div className="login-form">
             <h1>Welcome Back</h1>
             <p>Sign in to continue your sweet journey</p>
-            
+
             <form onSubmit={submitHandler}>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Email Address</label>
                 <input
-                  type="text"
+                  type="email"
                   id="username"
                   name="username"
                   value={username}
                   onChange={setHandlerChange}
-                  placeholder="Enter your username"
+                  placeholder="Enter your registered email"
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
@@ -116,12 +116,12 @@ const Login = () => {
                   required
                 />
               </div>
-              
+
               <button type="submit" className="login-button">
                 Sign In
               </button>
             </form>
-            
+
             <div className="login-footer">
               <p>Don't have an account?</p>
               <Link to="/register-user" className="signup-link">

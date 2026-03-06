@@ -34,8 +34,7 @@ public class CartController {
     @PutMapping("/increase-productQty/{cartId}/{productId}")
     public ResponseEntity<Cart> increaseProductQuantity(
             @PathVariable Integer cartId,
-            @PathVariable Integer productId
-    ) {
+            @PathVariable Integer productId) {
         Cart cart = cartService.increaseProductQuantity(cartId, productId);
         return ResponseEntity.ok(cart);
     }
@@ -43,8 +42,7 @@ public class CartController {
     @PutMapping("/decrease-productQty/{cartId}/{productId}")
     public ResponseEntity<Cart> decreaseProductQuantity(
             @PathVariable Integer cartId,
-            @PathVariable Integer productId
-    ) {
+            @PathVariable Integer productId) {
         Cart cart = cartService.decreaseProductQuantity(cartId, productId);
         return ResponseEntity.ok(cart);
     }

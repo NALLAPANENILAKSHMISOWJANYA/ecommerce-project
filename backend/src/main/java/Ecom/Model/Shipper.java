@@ -22,27 +22,27 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Shipper")
+@Table(name = "shipper")
 public class Shipper {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer shipperId;
 
-    @NotNull(message = "Name Is Mandatory ,can Not Be Null")
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer shipperId;
+
+	@NotNull(message = "Name Is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Name Is Mandatory")
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @NotNull(message = "phoneNumber Is Mandatory ,can Not Be Null")
-   	@NotBlank(message = "phoneNumber Is Mandatory")
-    @Size(min=10,max = 12)
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "shipper",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<ShippingDetails> shippingDetails= new ArrayList<>();
+	@NotNull(message = "phoneNumber Is Mandatory ,can Not Be Null")
+	@NotBlank(message = "phoneNumber Is Mandatory")
+	@Size(min = 10, max = 12)
+	@Column(name = "phoneNumber")
+	private String phoneNumber;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "shipper", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ShippingDetails> shippingDetails = new ArrayList<>();
 
 	public Integer getShipperId() {
 		return shipperId;
@@ -76,6 +76,4 @@ public class Shipper {
 		this.shippingDetails = shippingDetails;
 	};
 
-  
 }
-

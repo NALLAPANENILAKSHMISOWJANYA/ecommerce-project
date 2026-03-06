@@ -79,7 +79,9 @@ function AddProduct() {
             name="description"
             value={product.description}
             onChange={handleChange}
-            placeholder="Description"
+            minLength="10"
+            maxLength="500"
+            placeholder="Description (min 10 chars)"
           />
         </div>
         <div className="input-group">

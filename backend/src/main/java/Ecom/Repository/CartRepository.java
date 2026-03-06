@@ -8,5 +8,4 @@ import Ecom.Model.Cart;
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
-
 }
