@@ -23,7 +23,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8082/ecom/products/${productId}`)
+      .get(`https://ecommerce-project-backend-523y.onrender.com/ecom/products/${productId}`)
       .then((response) => {
         setProduct(response.data);
       })

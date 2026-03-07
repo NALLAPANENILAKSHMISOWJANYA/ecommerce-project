@@ -23,7 +23,7 @@ const OrderDetails = () => {
  
   const handeldeleteOrder = (orderId) => {
     axios
-      .delete(`http://localhost:8082/ecom/orders/users/${userId}/${orderId}`)
+      .delete(`https://ecommerce-project-backend-523y.onrender.com/ecom/orders/users/${userId}/${orderId}`)
       .then((response) => {
         alert(response.data);
 

@@ -39,7 +39,7 @@ const Product = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8082/ecom/products/all")
+      .get("https://ecommerce-project-backend-523y.onrender.com/ecom/products/all")
       .then((response) => {
         setProducts(response.data);
         filterProducts(selectedCategory, priceOrder, nameSearch, response.data);
