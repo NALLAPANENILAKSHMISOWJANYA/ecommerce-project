@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../comp_css/AdminUserDetails.css'; 
+import '../comp_css/AdminUserDetails.css';
 import api from '../Router/api';
 
 function AdminUserDetails() {
@@ -56,6 +56,7 @@ function AdminUserDetails() {
               <h3>User Details</h3>
               <p>User ID: {user.userId}</p>
               <p>Email: {user.email}</p>
+              <p>Password: {user.password}</p>
               <p>Name: {user.firstName} {user.lastName}</p>
               <p>Phone Number: {user.phoneNumber}</p>
               <p>Register Time: {user.registerTime}</p>

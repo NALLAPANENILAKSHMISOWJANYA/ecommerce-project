@@ -31,7 +31,7 @@ public class Payment {
 	@Column(name = "payment_id")
 	private Long paymentId;
 
-	@Column(name = "payment_date", columnDefinition = "DATETIME")
+	@Column(name = "payment_date")
 	private LocalDateTime paymentDate;
 
 	@Column(name = "payment_amount")

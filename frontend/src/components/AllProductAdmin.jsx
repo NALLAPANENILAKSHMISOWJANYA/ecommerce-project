@@ -138,9 +138,9 @@ const AllProductAdmin = () => {
               <p>Category: {product.category}</p>
               <p>
                 Description:{" "}
-                {product.description.length > 30
+                {product.description && product.description.length > 30
                   ? product.description.substring(0, 50) + "..."
-                  : product.description}
+                  : product.description || "No description"}
               </p>
 
               <h2 className="product-price1">Price: ₹ {product.price}</h2>

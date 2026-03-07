@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../Router/api';
 import '../comp_css/CategoryProducts.css';
 
 const CategoryProducts = () => {
@@ -18,7 +18,7 @@ const CategoryProducts = () => {
     const fetchProducts = async () => {
       try {
         // Fetch all products first
-        const response = await axios.get('http://localhost:8082/ecom/products/all');
+        const response = await api.get('/ecom/products/all');
         // Filter products by category
         const filteredProducts = response.data.filter(
           product => product.category.toLowerCase() === categoryId.toLowerCase()
@@ -51,7 +51,7 @@ const CategoryProducts = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:8082/ecom/cart/add-product?userId=${userId}&productId=${productId}`);
+      const response = await api.post(`/ecom/cart/add-product?userId=${userId}&productId=${productId}`);
       localStorage.setItem('cartid', response.data.cartId);
       alert('Product added to Cart');
     } catch (error) {
@@ -88,7 +88,7 @@ const CategoryProducts = () => {
         <div className="no-products">
           <h2>No products found in this category</h2>
           <p>Please check back later for new additions</p>
-          <button 
+          <button
             className="back-to-categories"
             onClick={() => navigate('/')}
           >
@@ -112,21 +112,21 @@ const CategoryProducts = () => {
                   <p className="product-description">{product.description}</p>
                   <div className="product-actions">
                     {isLoggedIn ? (
-                      <button 
+                      <button
                         className="add-to-cart-btn"
                         onClick={() => addToCart(product.productId)}
                       >
                         Add to Cart
                       </button>
                     ) : (
-                      <button 
+                      <button
                         className="login-to-buy-btn"
                         onClick={handleLoginClick}
                       >
                         Login to Buy
                       </button>
                     )}
-                    <button 
+                    <button
                       className="view-details-btn"
                       onClick={() => navigate(`/product/${product.productId}`)}
                     >

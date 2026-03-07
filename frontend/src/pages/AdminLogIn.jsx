@@ -35,8 +35,10 @@ const AdminLogin = () => {
         },
       });
 
-      if (response.headers.authorization != undefined) {
-        localStorage.setItem("jwtToken", response.headers.authorization);
+      const authHeaderResponse = response.headers.get ? response.headers.get("authorization") : response.headers["authorization"];
+
+      if (authHeaderResponse !== undefined && authHeaderResponse !== null) {
+        localStorage.setItem("jwtToken", authHeaderResponse);
         localStorage.setItem("adminid", response.data.id);
         alert("Admin Login successfully");
         navigate("/admin/admin");

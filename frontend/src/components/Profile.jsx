@@ -4,29 +4,29 @@ import "../comp_css/Profile.css";
 import Address from "../components/Address";
 import UpdateAddress from "../components/UpdateAddress";
 
-const userid = localStorage.getItem("userid");
-const passData={
-  newpass:""
-}
-
-
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
+  const { userid: urlUserId } = useParams();
+  const loggedInUserId = localStorage.getItem("userid");
+  // Prioritize URL param, fallback to logged in user ID
+  const userid = urlUserId || loggedInUserId;
+
   const [profileData, setProfileData] = useState(null);
   const [add, setAdd] = useState(null);
   const [addressModal, setAddressModal] = useState(false);
   const [updateaddressModal, setUpdateAddressModal] = useState(false);
   const [showPassSection, setShowPassSection] = useState(false);
-  const [passform, setNewPassword1] = useState("");
+  const [passform, setPassform] = useState({ newPassword: "" });
   const [error, setError] = useState(null);
 
   const handleChange = (e) => {
-    const val = e.target.value;
-    setNewPassword1({ ...passform, [e.target.name]: val });
+    const { name, value } = e.target;
+    setPassform({ ...passform, [name]: value });
   };
 
   const handleSubmit = (e) => {
-    
+
     e.preventDefault();
 
     api
@@ -72,7 +72,7 @@ const Profile = () => {
   }, [userid]);
 
 
-  const {newpass}=passform;
+  const { newPassword } = passform;
   const latestAddress = profileData?.address?.length
     ? profileData.address[profileData.address.length - 1]
     : null;
@@ -123,7 +123,7 @@ const Profile = () => {
                 </p>
                 <p>
                   <strong>Registration :</strong>{" "}
-                  {profileData.registerTime.substring(0, 10)}
+                  {profileData.registerTime ? profileData.registerTime.substring(0, 10) : "N/A"}
                 </p>
               </>
             ) : (
@@ -179,7 +179,7 @@ const Profile = () => {
               <input
                 type="password"
                 name="newPassword"
-                value={newpass}
+                value={newPassword}
                 onChange={handleChange}
               />
               {error && <p className="error">{error}</p>}

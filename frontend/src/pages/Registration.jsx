@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../comp_css/Login.css";
 import { useNavigate, Link } from "react-router-dom";
-import api from '../Router/api';
+import axios from 'axios';
 
 const initialFormData = {
   email: "",
@@ -22,10 +22,10 @@ const Registration = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
-      const response = await api.post("/ecom/customers", form);
-      
+      const response = await axios.post("http://localhost:8082/ecom/customers", form);
+
       if (response.status === 200) {
         alert("Your registration was successful");
         navigate("/login");
@@ -34,19 +34,19 @@ const Registration = () => {
       }
     } catch (error) {
       if (error.response && error.response.data) {
-        alert(error.response.data.message); 
+        alert(error.response.data.message);
       } else {
         alert("Error registering. Please try again later.");
         console.error("Error registering:", error);
       }
     }
   };
-  
+
   const { email, password, firstName, lastName, phoneNumber } = form;
 
   return (
     <div className="login-container">
-      <button 
+      <button
         className="home-button"
         onClick={() => navigate("/")}
         style={{
@@ -68,8 +68,8 @@ const Registration = () => {
       </button>
       <div className="login-content">
         <div className="login-image">
-          <img 
-            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" 
+          <img
+            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80"
             alt="Ice Cream Delight"
           />
         </div>
@@ -77,7 +77,7 @@ const Registration = () => {
           <div className="login-form">
             <h1>Create Account</h1>
             <p>Join us for a sweet experience</p>
-            
+
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
@@ -91,7 +91,7 @@ const Registration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
@@ -104,7 +104,7 @@ const Registration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="firstName">First Name</label>
                 <input
@@ -117,7 +117,7 @@ const Registration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="lastName">Last Name</label>
                 <input
@@ -130,7 +130,7 @@ const Registration = () => {
                   required
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="phoneNumber">Phone Number</label>
                 <input
@@ -143,12 +143,12 @@ const Registration = () => {
                   required
                 />
               </div>
-              
+
               <button type="submit" className="login-button">
                 Create Account
               </button>
             </form>
-            
+
             <div className="login-footer">
               <p>Already have an account?</p>
               <Link to="/login" className="signup-link">

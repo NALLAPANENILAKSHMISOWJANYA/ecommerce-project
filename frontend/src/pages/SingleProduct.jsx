@@ -11,7 +11,7 @@ const SingleProduct = () => {
   const userid = localStorage.getItem("userid");
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
-  
+
   // Available size options - customize based on your ice cream products
   const sizeOptions = [
     { id: "small", label: "Small Cup (100ml)", price: 0 },
@@ -38,10 +38,10 @@ const SingleProduct = () => {
       alert("Please select a size first!");
       return;
     }
-    
+
     const sizeOption = sizeOptions.find(option => option.id === selectedSize);
     const totalPrice = (Number(product.price) + sizeOption.price) * quantity;
-    
+
     // Create a cart item object with all necessary information
     const cartItem = {
       productId: productid,
@@ -49,11 +49,10 @@ const SingleProduct = () => {
       quantity: quantity,
       price: totalPrice
     };
-    
+
     api
       .post(
-        `/ecom/cart/add-product?userId=${userid}`,
-        cartItem
+        `/ecom/cart/add-product?userId=${userid}&productId=${productid}`
       )
       .then((response) => {
         localStorage.setItem("cartid", response.data.cartId);
@@ -63,115 +62,115 @@ const SingleProduct = () => {
         alert("Product already in cart or error adding product......");
       });
   };
-  
+
   // Calculate total price based on base price, selected size, and quantity
   const calculateTotalPrice = () => {
     if (!product.price || !selectedSize) return 0;
-    
+
     const sizeOption = sizeOptions.find(option => option.id === selectedSize);
     const sizeAdditionalPrice = sizeOption ? sizeOption.price : 0;
-    
+
     return (Number(product.price) + sizeAdditionalPrice) * quantity;
   };
 
   return (
     <>
-    <h1 style={{color:"green",textAlign:"center",margin:"20px"}}>Single Product </h1>
-    <div className="product-container">
-     
-      <div className="product-details">
-        <div className="product_image">
-          <img src={product.imageUrl} alt={product.name} />
+      <h1 style={{ color: "green", textAlign: "center", margin: "20px" }}>Single Product </h1>
+      <div className="product-container">
+
+        <div className="product-details">
+          <div className="product_image">
+            <img src={product.imageUrl} alt={product.name} />
+          </div>
+
+          <div className="product_details">
+            <h2>{product.name}</h2>
+            <p>Category: {product.category}</p>
+            <p>Description: {product.description}</p>
+            <p>Base Price: ₹ {product.price}</p>
+
+            {/* Size Selection */}
+            <div className="size-selection">
+              <h3>Select Size:</h3>
+              <div className="size-options">
+                {sizeOptions.map((option) => (
+                  <div key={option.id} className="size-option">
+                    <input
+                      type="radio"
+                      id={option.id}
+                      name="size"
+                      value={option.id}
+                      checked={selectedSize === option.id}
+                      onChange={() => setSelectedSize(option.id)}
+                    />
+                    <label htmlFor={option.id}>
+                      {option.label} {option.price > 0 && `(+₹${option.price})`}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quantity Selection */}
+            <div className="quantity-selection">
+              <h3>Select Quantity:</h3>
+              <div className="quantity-control">
+                <button
+                  className="quantity-btn"
+                  onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                  disabled={quantity <= 1}
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
+                  className="quantity-input"
+                />
+                <button
+                  className="quantity-btn"
+                  onClick={() => setQuantity(prev => prev + 1)}
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            {/* Total Price */}
+            {selectedSize && (
+              <div className="total-price">
+                <h3>Total Price: ₹ {calculateTotalPrice()}</h3>
+              </div>
+            )}
+
+            <div className="action-buttons">
+              <button
+                className="add-to-cart-btn"
+                onClick={() => {
+                  addProductToCart(product.productId);
+                }}
+                disabled={!selectedSize}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div className="product_details">
-          <h2>{product.name}</h2>
-          <p>Category: {product.category}</p>
-          <p>Description: {product.description}</p>
-          <p>Base Price: ₹ {product.price}</p>
-          
-          {/* Size Selection */}
-          <div className="size-selection">
-            <h3>Select Size:</h3>
-            <div className="size-options">
-              {sizeOptions.map((option) => (
-                <div key={option.id} className="size-option">
-                  <input
-                    type="radio"
-                    id={option.id}
-                    name="size"
-                    value={option.id}
-                    checked={selectedSize === option.id}
-                    onChange={() => setSelectedSize(option.id)}
-                  />
-                  <label htmlFor={option.id}>
-                    {option.label} {option.price > 0 && `(+₹${option.price})`}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Quantity Selection */}
-          <div className="quantity-selection">
-            <h3>Select Quantity:</h3>
-            <div className="quantity-control">
-              <button 
-                className="quantity-btn"
-                onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-                disabled={quantity <= 1}
-              >
-                -
-              </button>
-              <input 
-                type="number" 
-                min="1" 
-                value={quantity} 
-                onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                className="quantity-input"
-              />
-              <button 
-                className="quantity-btn"
-                onClick={() => setQuantity(prev => prev + 1)}
-              >
-                +
-              </button>
-            </div>
-          </div>
-          
-          {/* Total Price */}
-          {selectedSize && (
-            <div className="total-price">
-              <h3>Total Price: ₹ {calculateTotalPrice()}</h3>
-            </div>
-          )}
-
-          <div className="action-buttons">
+        <div className="counter-box">
+          <div>
             <button
-              className="add-to-cart-btn"
               onClick={() => {
-                addProductToCart(product.productId);
+                navigate("/user/cart");
               }}
-              disabled={!selectedSize}
             >
-              Add to Cart
+              Move To Cart
             </button>
           </div>
         </div>
       </div>
-
-      <div className="counter-box">
-        <div>
-          <button
-            onClick={() => {
-              navigate("/user/cart");
-            }}
-          >
-            Move To Cart
-          </button>
-        </div>
-      </div>
-    </div>
     </>
   );
 };

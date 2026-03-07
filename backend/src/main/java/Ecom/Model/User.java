@@ -39,7 +39,6 @@ public class User {
 	@Column(name = "email", unique = true)
 	private String email;
 
-	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Column(name = "password")
 	private String password;
 
@@ -57,7 +56,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 
-	@Column(name = "User_Reg_Time", columnDefinition = "DATETIME")
+	@Column(name = "User_Reg_Time")
 	private LocalDateTime registerTime;
 
 	@Column(name = "UserAccountStatus")

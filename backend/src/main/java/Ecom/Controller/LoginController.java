@@ -22,17 +22,20 @@ public class LoginController {
 
 	@GetMapping("/signIn")
 	public ResponseEntity<UserSignInDetail> getLoggedInCustomerDetailsHandler(Authentication auth) {
-		try {var customer = userService.getUserByEmailId(auth.getName());
+		try {
+			var customer = userService.getUserByEmailId(auth.getName());
 			UserSignInDetail signinSuceesData = new UserSignInDetail();
 			signinSuceesData.setId(customer.getUserId());
 			signinSuceesData.setFirstNAme(customer.getFirstName());
 			signinSuceesData.setLastName(customer.getLastName());
 			signinSuceesData.setSigninStatus("Success");
 
-			return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);
+			if (customer.getCart() != null) {
+				signinSuceesData.setCartId(customer.getCart().getCartId());
 			}
-		catch(UserException ex )
-		{
+
+			return new ResponseEntity<>(signinSuceesData, HttpStatus.OK);
+		} catch (UserException ex) {
 			throw new UserException("Invalid Password");
 		}
 

@@ -37,7 +37,7 @@ public class Orders {
 	@Enumerated(EnumType.STRING)
 	private OrderStatus status;
 
-	@Column(name = "order_date", columnDefinition = "DATETIME")
+	@Column(name = "order_date")
 	private LocalDateTime orderDate;
 
 	@ManyToOne

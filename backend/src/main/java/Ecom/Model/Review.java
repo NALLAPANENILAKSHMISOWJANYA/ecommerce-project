@@ -35,7 +35,7 @@ public class Review {
 	@NotBlank(message = "Comment should be Filled")
 	private String comment;
 
-	@Column(name = "created_at", columnDefinition = "DATETIME")
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
 
 	@JsonIgnore

@@ -6,33 +6,50 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserSignInDetail {
-    Integer id;
-    String firstNAme;
-    String lastName;
-    String signinStatus;
+	Integer id;
+	String firstNAme;
+	String lastName;
+	String signinStatus;
+	Integer cartId;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getFirstNAme() {
 		return firstNAme;
 	}
+
 	public void setFirstNAme(String firstNAme) {
 		this.firstNAme = firstNAme;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getSigninStatus() {
 		return signinStatus;
 	}
+
 	public void setSigninStatus(String signinStatus) {
 		this.signinStatus = signinStatus;
+	}
+
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
 	}
 
 }

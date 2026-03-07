@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	
 	public UserServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
@@ -94,7 +93,6 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	
 	@Override
 	public String deactivateUser(Integer userId) throws UserException {
 		User existingUser = userRepository.findById(userId).orElseThrow(() -> new UserException("User not found"));
@@ -118,7 +116,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return existingAllUser;
 	}
-
-	
 
 }

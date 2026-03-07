@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../comp_css/Login.css";
 import { useNavigate, Link } from "react-router-dom";
-import api from '../Router/api';
+import axios from 'axios';
 
 const formData = {
   username: "",
@@ -29,15 +29,24 @@ const Login = () => {
 
     try {
       const authHeader = `Basic ${btoa(`${form.username}:${form.password}`)}`;
-      const response = await api.get("/ecom/signIn", {
+      const response = await axios.get("http://localhost:8082/ecom/signIn", {
         headers: {
           Authorization: authHeader,
         },
       });
-      if (response.headers.authorization != undefined) {
-        localStorage.setItem("jwtToken", response.headers.authorization);
+
+      console.log("Login response headers: ", response.headers);
+
+      // Axios 1.x headers are AxiosHeaders object, so we should check both cases or use get()
+      const authHeaderResponse = response.headers.get ? response.headers.get("authorization") : response.headers["authorization"];
+
+      if (authHeaderResponse !== undefined && authHeaderResponse !== null) {
+        localStorage.setItem("jwtToken", authHeaderResponse);
         localStorage.setItem("name", response.data.firstNAme || "LogIn");
         localStorage.setItem("userid", response.data.id);
+        if (response.data.cartId) {
+          localStorage.setItem("cartid", response.data.cartId);
+        }
         alert("Login successfully");
         navigate("/");
       } else {

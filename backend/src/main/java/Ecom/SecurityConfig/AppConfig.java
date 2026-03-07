@@ -34,10 +34,11 @@ public class AppConfig {
 
                                                         CorsConfiguration cfg = new CorsConfiguration();
 
-                                                        cfg.setAllowedOriginPatterns(Collections.singletonList("*"));
-                                                        // cfg.setAllowedOriginPatterns(Collections.singletonList("https://eccomers96.netlify.app/"));
-                                                        cfg.setAllowedOriginPatterns(Collections
-                                                                        .singletonList("http://localhost:5173"));
+                                                        cfg.setAllowedOriginPatterns(Arrays.asList(
+                                                                        "http://localhost:5173",
+                                                                        "http://localhost:5174",
+                                                                        "http://localhost:5175",
+                                                                        "*"));
                                                         cfg.setAllowedMethods(Collections.singletonList("*"));
 
                                                         cfg.setAllowCredentials(true);
@@ -51,6 +52,9 @@ public class AppConfig {
                                 })
                                 .authorizeHttpRequests(auth -> {
                                         auth
+                                                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow
+                                                                                                                // CORS
+                                                                                                                // preflight
                                                         .requestMatchers("/", "/favicon.ico").permitAll() // Allow root
                                                                                                           // path and
                                                                                                           // favicon

@@ -27,6 +27,9 @@ const Cart = () => {
 
   };
   const fetchCartData = () => {
+    const cartId = localStorage.getItem("cartid");
+    if (!cartId || cartId === "null") return;
+
     api
       .get(`/ecom/cart/products/${cartId}`)
       .then((response) => {
@@ -40,12 +43,11 @@ const Cart = () => {
 
   useEffect(() => {
     document.title = "Ecommerse | Cart";
-    if (cartId) {
-      fetchCartData();
-    }
-  }, [cartId]);
+    fetchCartData();
+  }, []);
 
   const emptyCart = () => {
+    const cartId = localStorage.getItem("cartid");
     api
       .delete(`/ecom/cart/empty-Cart/${cartId}`)
       .then(() => {
@@ -59,6 +61,7 @@ const Cart = () => {
   };
 
   const removeProductfromCart = (productId) => {
+    const cartId = localStorage.getItem("cartid");
     api
       .delete(`/ecom/cart/remove-product/${cartId}/${productId}`)
       .then(() => {
@@ -107,7 +110,7 @@ const Cart = () => {
                 <h2>{item.product.name}</h2>
                 <p>Category: {item.product.category}</p>
                 <p className="description">
-                  {item.product.description.substring(0, 60)}...
+                  {item.product.description ? item.product.description.substring(0, 60) : "No description available"}...
                 </p>
                 <div className="cartproduct-price">₹{item.product.price}</div>
 

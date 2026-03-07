@@ -37,7 +37,7 @@ public class Product {
 
 	@NotNull(message = "Product Image is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Product Image is Mandatory")
-	@Column(name = "imageUrl")
+	@Column(name = "imageUrl", length = 5000)
 	private String imageUrl;
 
 	@Column(name = "isAvailable")
@@ -45,8 +45,8 @@ public class Product {
 
 	@NotNull(message = "Product description is Mandatory ,can Not Be Null")
 	@NotBlank(message = "Product description is Mandatory")
-	@Size(min = 10, max = 500)
-	@Column(name = "description")
+	@Size(min = 10, max = 5000)
+	@Column(name = "description", length = 5000)
 	private String description;
 
 	@NotNull(message = "Product price is Mandatory ,can Not Be Null")
