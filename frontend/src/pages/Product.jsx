@@ -69,12 +69,7 @@ const Product = () => {
   return (
     <div className="product-page">
       <div className="filter-section">
-        <div className="filter-header">
-          <div className="filter-icon-circle">
-            <i className="fa-solid fa-filter"></i>
-          </div>
-          <h2>Filter</h2>
-        </div>
+
 
 
 
