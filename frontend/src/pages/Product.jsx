@@ -76,16 +76,7 @@ const Product = () => {
           <h2>Filter</h2>
         </div>
 
-        <div className="filter-group">
-          <label>Pick Color</label>
-          <div className="color-swatches">
-            <div className="swatch" style={{ background: '#ae7a7a' }}></div>
-            <div className="swatch" style={{ background: '#d4885c' }}></div>
-            <div className="swatch" style={{ background: '#6c5ce7' }}></div>
-            <div className="swatch" style={{ background: '#00cec9' }}></div>
-            <div className="swatch" style={{ background: '#55efc4' }}></div>
-          </div>
-        </div>
+
 
         <div className="filter-group">
           <label>Category</label>
