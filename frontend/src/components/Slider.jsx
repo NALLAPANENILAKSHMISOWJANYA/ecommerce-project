@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../comp_css/Slider.css";
 
 const Slider = ({ images, interval }) => {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -17,13 +19,13 @@ const Slider = ({ images, interval }) => {
   };
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       (prevIndex + 1) % images.length
     );
   };
@@ -44,9 +46,9 @@ const Slider = ({ images, interval }) => {
               <h2>{image.title}</h2>
               <p>{image.description}</p>
               {image.buttonText && (
-                <button 
+                <button
                   className="slide-button"
-                  onClick={() => window.location.href = image.buttonLink}
+                  onClick={() => navigate(image.buttonLink)}
                 >
                   {image.buttonText}
                 </button>
@@ -55,14 +57,14 @@ const Slider = ({ images, interval }) => {
           </div>
         ))}
       </div>
-      
+
       <button className="slider-button prev" onClick={goToPrevious}>
         &#10094;
       </button>
       <button className="slider-button next" onClick={goToNext}>
         &#10095;
       </button>
-      
+
       <div className="slider-dots">
         {images.map((_, index) => (
           <span

@@ -55,7 +55,7 @@ const Home = () => {
       title: "Premium Flavors",
       description: "Experience our handcrafted premium ice cream collection",
       buttonText: "Explore Premium",
-      buttonLink: "/category/premium"
+      buttonLink: "/product"
     }
   ];
 
@@ -177,10 +177,10 @@ const Home = () => {
 
   useEffect(() => {
     document.title = 'Ice Cream Delight | Home';
-    return () => { 
+    return () => {
       document.title = 'Ice Cream Delight';
     };
-  }, []); 
+  }, []);
 
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "20px" }}>
@@ -197,7 +197,7 @@ const Home = () => {
         </h2>
         <div className="cardbox" style={cardboxStyle}>
           {categories.map((category) => (
-            <div 
+            <div
               key={category.id}
               style={categoryCardStyle}
               onClick={() => navigate(`/category/${category.id}`)}
@@ -210,9 +210,9 @@ const Home = () => {
                 e.currentTarget.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
               }}
             >
-              <img 
-                src={category.image} 
-                alt={category.title} 
+              <img
+                src={category.image}
+                alt={category.title}
                 style={categoryImageStyle}
               />
               <div style={categoryLabelStyle}>{category.title}</div>
