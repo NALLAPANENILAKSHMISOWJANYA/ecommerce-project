@@ -103,21 +103,21 @@ const Product = () => {
         </div>
 
         <div className="filter-group">
-          <label>Brand</label>
-          <div><input type="checkbox" /> Reymond</div>
-          <div><input type="checkbox" defaultChecked /> Blue world</div>
-          <div><input type="checkbox" defaultChecked /> Vanhuesen</div>
-          <div><input type="checkbox" /> Bimboss</div>
-          <div><input type="checkbox" /> Vanhuesen</div>
+          <label className="filter-heading">Flavours</label>
+          <label className="filter-item"><input type="checkbox" /> Premium</label>
+          <label className="filter-item"><input type="checkbox" /> Classic</label>
+          <label className="filter-item"><input type="checkbox" /> Seasonal</label>
+          <label className="filter-item"><input type="checkbox" /> Fruit Based</label>
+          <label className="filter-item"><input type="checkbox" /> Cones and Bars</label>
         </div>
 
         <div className="filter-group">
-          <label>Price</label>
-          <div><input type="radio" name="price" /> 50 - 100</div>
-          <div><input type="radio" name="price" /> 100 - 150</div>
-          <div><input type="radio" name="price" /> 150 - 200</div>
-          <div><input type="radio" name="price" defaultChecked /> 200 - 250</div>
-          <div><input type="radio" name="price" /> 250 - 300</div>
+          <label className="filter-heading">Price</label>
+          <label className="filter-item"><input type="radio" name="price" /> ₹50 - ₹100</label>
+          <label className="filter-item"><input type="radio" name="price" /> ₹100 - ₹150</label>
+          <label className="filter-item"><input type="radio" name="price" /> ₹150 - ₹200</label>
+          <label className="filter-item"><input type="radio" name="price" defaultChecked /> ₹200 - ₹250</label>
+          <label className="filter-item"><input type="radio" name="price" /> ₹250 - ₹300</label>
         </div>
       </div>
 
